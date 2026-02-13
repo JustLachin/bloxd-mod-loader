@@ -22,19 +22,15 @@
             --accent-blue: #58a6ff;
             --accent-red: #f85149;
             --accent-yellow: #d29922;
-            --accent-purple: #a371f7;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* Header */
         .header {
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
@@ -42,6 +38,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .logo {
@@ -50,30 +48,19 @@
             gap: 12px;
         }
 
-        .logo-icon {
-            font-size: 28px;
-        }
-
         .logo-text {
             font-size: 20px;
             font-weight: 600;
         }
 
-        .logo-version {
-            background: var(--accent-purple);
+        .version {
+            background: var(--accent-blue);
             color: white;
             padding: 2px 8px;
             border-radius: 12px;
             font-size: 12px;
-            font-weight: 500;
         }
 
-        .header-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        /* Buttons */
         .btn {
             padding: 10px 16px;
             border-radius: 8px;
@@ -81,10 +68,9 @@
             background: var(--bg-tertiary);
             color: var(--text-primary);
             font-size: 14px;
-            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
         }
@@ -101,35 +87,15 @@
 
         .btn-primary:hover {
             background: #2ea043;
-            border-color: #2ea043;
         }
 
-        .btn-danger {
-            background: transparent;
-            border-color: var(--accent-red);
-            color: var(--accent-red);
-        }
-
-        .btn-danger:hover {
-            background: var(--accent-red);
-            color: white;
-        }
-
-        .btn-small {
-            padding: 6px 10px;
-            font-size: 12px;
-        }
-
-        /* Main Container */
-        .main-container {
+        .main {
             display: flex;
-            flex: 1;
-            overflow: hidden;
+            height: calc(100vh - 70px);
         }
 
-        /* Sidebar - Mod List */
         .sidebar {
-            width: 280px;
+            width: 300px;
             background: var(--bg-secondary);
             border-right: 1px solid var(--border-color);
             display: flex;
@@ -149,7 +115,6 @@
             font-weight: 600;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .mod-count {
@@ -157,7 +122,6 @@
             padding: 4px 10px;
             border-radius: 12px;
             font-size: 12px;
-            color: var(--text-secondary);
         }
 
         .mod-list {
@@ -198,63 +162,106 @@
 
         .mod-name {
             font-weight: 500;
-            font-size: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .mod-status {
-            font-size: 11px;
+            font-size: 10px;
             padding: 2px 8px;
             border-radius: 12px;
             font-weight: 600;
         }
 
-        .mod-status.enabled {
+        .mod-status.on {
             background: rgba(63, 185, 80, 0.2);
             color: var(--accent-green);
         }
 
-        .mod-status.disabled {
+        .mod-status.off {
             background: rgba(139, 148, 158, 0.2);
             color: var(--text-secondary);
         }
 
-        .mod-actions {
-            display: flex;
-            gap: 4px;
-        }
-
-        .mod-action-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .mod-action-btn:hover {
-            background: var(--border-color);
-            color: var(--text-primary);
-        }
-
-        .mod-action-btn.delete:hover {
-            color: var(--accent-red);
-        }
-
-        .mod-code-preview {
-            font-family: 'Fira Code', 'Consolas', monospace;
+        .mod-preview {
+            font-family: monospace;
             font-size: 11px;
             color: var(--text-secondary);
             background: var(--bg-primary);
-            padding: 8px;
+            padding: 6px 8px;
             border-radius: 4px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            margin-bottom: 8px;
+        }
+
+        .mod-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .toggle {
+            position: relative;
+            width: 36px;
+            height: 20px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: var(--bg-primary);
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle input:checked + .toggle-slider {
+            background: var(--accent-green);
+        }
+
+        .toggle input:checked + .toggle-slider:before {
+            transform: translateX(16px);
+            background: white;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .action-btn:hover {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .action-btn.delete:hover {
+            color: var(--accent-red);
         }
 
         .empty-state {
@@ -269,15 +276,30 @@
             opacity: 0.5;
         }
 
-        /* Editor Panels */
-        .editor-container {
+        .sidebar-footer {
+            padding: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .sidebar-footer .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .editor-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-split {
             flex: 1;
             display: flex;
             gap: 1px;
             background: var(--border-color);
         }
 
-        .editor-panel {
+        .panel {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -306,10 +328,10 @@
             color: var(--text-secondary);
         }
 
-        .code-area {
+        .code-editor {
             flex: 1;
             padding: 16px;
-            font-family: 'Fira Code', 'Consolas', monospace;
+            font-family: 'Consolas', 'Monaco', monospace;
             font-size: 13px;
             line-height: 1.6;
             background: var(--bg-primary);
@@ -322,7 +344,7 @@
         .code-output {
             flex: 1;
             padding: 16px;
-            font-family: 'Fira Code', 'Consolas', monospace;
+            font-family: 'Consolas', 'Monaco', monospace;
             font-size: 13px;
             line-height: 1.6;
             background: var(--bg-primary);
@@ -331,12 +353,12 @@
             white-space: pre;
         }
 
-        .output-placeholder {
+        .placeholder {
             color: var(--text-secondary);
             font-style: italic;
         }
 
-        .char-count {
+        .char-bar {
             font-size: 12px;
             color: var(--text-secondary);
             padding: 8px 16px;
@@ -344,67 +366,18 @@
             border-top: 1px solid var(--border-color);
         }
 
-        .char-count.warning {
+        .char-bar.warning {
             color: var(--accent-yellow);
         }
 
-        .char-count.error {
+        .char-bar.error {
             color: var(--accent-red);
         }
 
-        /* Toggle Switch */
-        .toggle {
-            position: relative;
-            width: 40px;
-            height: 22px;
-        }
-
-        .toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--bg-tertiary);
-            border-radius: 22px;
-            transition: 0.3s;
-        }
-
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 3px;
-            bottom: 3px;
-            background: var(--text-secondary);
-            border-radius: 50%;
-            transition: 0.3s;
-        }
-
-        .toggle input:checked + .toggle-slider {
-            background: var(--accent-green);
-        }
-
-        .toggle input:checked + .toggle-slider:before {
-            transform: translateX(18px);
-            background: white;
-        }
-
         /* Modal */
-        .modal-overlay {
+        .modal-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: rgba(0, 0, 0, 0.7);
             display: none;
             align-items: center;
@@ -412,7 +385,7 @@
             z-index: 1000;
         }
 
-        .modal-overlay.active {
+        .modal-bg.show {
             display: flex;
         }
 
@@ -447,14 +420,14 @@
             border-color: var(--accent-blue);
         }
 
-        .modal-actions {
+        .modal-btns {
             display: flex;
             gap: 12px;
             justify-content: flex-end;
         }
 
         /* Toast */
-        .toast-container {
+        .toast-box {
             position: fixed;
             top: 20px;
             right: 20px;
@@ -473,544 +446,432 @@
             animation: slideIn 0.3s ease;
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .toast.success {
+        .toast.ok {
             border-color: var(--accent-green);
         }
 
-        .toast.error {
+        .toast.err {
             border-color: var(--accent-red);
         }
 
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         /* Responsive */
-        @media (max-width: 900px) {
-            .main-container {
+        @media (max-width: 800px) {
+            .main {
                 flex-direction: column;
             }
-
             .sidebar {
                 width: 100%;
-                max-height: 200px;
+                max-height: 250px;
             }
-
-            .editor-container {
+            .editor-split {
                 flex-direction: column;
             }
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
-
         ::-webkit-scrollbar-track {
             background: var(--bg-primary);
         }
-
         ::-webkit-scrollbar-thumb {
             background: var(--border-color);
             border-radius: 4px;
         }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-secondary);
-        }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="logo">
-            <span class="logo-icon">⚡</span>
+            <span style="font-size: 24px;">⚡</span>
             <span class="logo-text">Bloxd.io Mod Loader</span>
-            <span class="logo-version">v1.0</span>
+            <span class="version">v1.0</span>
         </div>
-        <div class="header-actions">
-            <button class="btn" onclick="exportMods()">
-                <span>📁</span> Export
-            </button>
-            <button class="btn" onclick="document.getElementById('importInput').click()">
-                <span>📥</span> Import
-            </button>
-            <input type="file" id="importInput" accept=".json" style="display:none" onchange="importMods(event)">
-            <button class="btn btn-primary" onclick="copyOutput()">
-                <span>📋</span> Copy Output
-            </button>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button class="btn" onclick="exportMods()">📁 Export</button>
+            <button class="btn" onclick="document.getElementById('importFile').click()">📥 Import</button>
+            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importMods(event)">
+            <button class="btn btn-primary" onclick="copyOutput()">📋 Copy Output</button>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Sidebar - Mod List -->
+    <div class="main">
         <aside class="sidebar">
             <div class="sidebar-header">
                 <span class="sidebar-title">Mods</span>
                 <span class="mod-count" id="modCount">0 mods</span>
             </div>
-            <div class="mod-list" id="modList">
-                <!-- Mods will be rendered here -->
-            </div>
-            <div style="padding: 12px; border-top: 1px solid var(--border-color);">
-                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openAddModal()">
-                    <span>➕</span> Add New Mod
-                </button>
+            <div class="mod-list" id="modList"></div>
+            <div class="sidebar-footer">
+                <button class="btn btn-primary" onclick="openModal('add')">➕ Add New Mod</button>
             </div>
         </aside>
 
-        <!-- Editor Container -->
-        <div class="editor-container">
-            <!-- Input Editor -->
-            <div class="editor-panel">
-                <div class="panel-header">
-                    <span class="panel-title">
-                        <span>📝</span>
-                        <span id="inputTitle">Mod Code Input</span>
-                    </span>
-                    <span class="panel-info" id="inputInfo">Select a mod to edit</span>
-                </div>
-                <textarea class="code-area" id="inputEditor" placeholder="// Select a mod from the left panel to edit its code...
+        <div class="editor-area">
+            <div class="editor-split">
+                <div class="panel">
+                    <div class="panel-header">
+                        <span class="panel-title">📝 <span id="inputTitle">Mod Code Input</span></span>
+                        <span class="panel-info" id="inputInfo">Select a mod</span>
+                    </div>
+                    <textarea class="code-editor" id="inputCode" placeholder="// Select a mod to edit its code
 
-// Example mod:
+// Example:
 function tick() {
-    // Your code here
+    // runs every tick
 }
 
 function onPlayerJoin(pid) {
-    api.sendMessage(pid, 'Welcome!', {color: 'cyan'});
+    api.sendMessage(pid, 'Welcome!');
 }" spellcheck="false"></textarea>
-                <div class="char-count" id="inputCharCount">0 characters</div>
-            </div>
-
-            <!-- Output Editor -->
-            <div class="editor-panel">
-                <div class="panel-header">
-                    <span class="panel-title">
-                        <span>📄</span>
-                        <span>Combined Output</span>
-                    </span>
-                    <span class="panel-info">Copy this to Bloxd.io World Code</span>
+                    <div class="char-bar" id="inputChars">0 chars</div>
                 </div>
-                <div class="code-output" id="outputEditor">
-                    <span class="output-placeholder">// Add mods and enable them to see the combined output here...
 
-// The output will include all enabled mods with their names as comments.
-// Each mod will be wrapped in a comment block for easy identification.</span>
+                <div class="panel">
+                    <div class="panel-header">
+                        <span class="panel-title">📄 Combined Output</span>
+                        <span class="panel-info">Copy to Bloxd.io World Code</span>
+                    </div>
+                    <div class="code-output" id="outputCode">
+                        <span class="placeholder">// Enable mods to see combined output here</span>
+                    </div>
+                    <div class="char-bar" id="outputChars">0 / 16,000</div>
                 </div>
-                <div class="char-count" id="outputCharCount">0 / 16,000 characters</div>
             </div>
         </div>
     </div>
 
-    <!-- Add/Rename Modal -->
-    <div class="modal-overlay" id="modalOverlay">
+    <!-- Modal -->
+    <div class="modal-bg" id="modalBg">
         <div class="modal">
             <h3 class="modal-title" id="modalTitle">Add New Mod</h3>
-            <input type="text" class="modal-input" id="modalInput" placeholder="Enter mod name..." maxlength="50">
-            <div class="modal-actions">
+            <input type="text" class="modal-input" id="modalInput" placeholder="Mod name..." maxlength="50">
+            <div class="modal-btns">
                 <button class="btn" onclick="closeModal()">Cancel</button>
                 <button class="btn btn-primary" onclick="saveModal()">Save</button>
             </div>
         </div>
     </div>
 
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
+    <!-- Toast -->
+    <div class="toast-box" id="toastBox"></div>
 
     <script>
-        // ============================================
-        // STATE MANAGEMENT
-        // ============================================
-        
+        // ============ STATE ============
         let mods = [];
-        let selectedModId = null;
-        let modalMode = 'add'; // 'add' or 'rename'
-        let editingModId = null;
+        let selectedId = null;
+        let modalMode = 'add';
+        let editId = null;
 
-        // Load from localStorage on init
-        function loadMods() {
-            const saved = localStorage.getItem('bloxd_modloader_mods');
-            if (saved) {
-                try {
-                    mods = JSON.parse(saved);
-                } catch(e) {
-                    mods = [];
-                }
-            }
+        function load() {
+            try {
+                const data = localStorage.getItem('bloxd_mods');
+                if (data) mods = JSON.parse(data);
+            } catch(e) {}
         }
 
-        // Save to localStorage
-        function saveMods() {
-            localStorage.setItem('bloxd_modloader_mods', JSON.stringify(mods));
+        function save() {
+            localStorage.setItem('bloxd_mods', JSON.stringify(mods));
         }
 
-        // ============================================
-        // MOD MANAGEMENT
-        // ============================================
-
-        function generateId() {
-            return 'mod_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        function genId() {
+            return 'm' + Date.now() + Math.random().toString(36).substr(2, 6);
         }
 
+        // ============ MOD OPERATIONS ============
         function addMod(name) {
             const mod = {
-                id: generateId(),
-                name: name.trim() || 'Unnamed Mod',
+                id: genId(),
+                name: name.trim() || 'New Mod',
                 code: '',
-                enabled: true,
-                createdAt: new Date().toISOString()
+                on: true
             };
             mods.push(mod);
-            saveMods();
+            save();
             selectMod(mod.id);
-            renderModList();
-            updateOutput();
-            showToast('Mod added: ' + mod.name, 'success');
+            render();
+            toast('Added: ' + mod.name, 'ok');
         }
 
-        function deleteMod(id) {
+        function delMod(id) {
             const mod = mods.find(m => m.id === id);
-            if (mod) {
-                mods = mods.filter(m => m.id !== id);
-                if (selectedModId === id) {
-                    selectedModId = null;
-                    document.getElementById('inputEditor').value = '';
-                    document.getElementById('inputTitle').textContent = 'Mod Code Input';
-                    document.getElementById('inputInfo').textContent = 'Select a mod to edit';
-                }
-                saveMods();
-                renderModList();
-                updateOutput();
-                showToast('Mod deleted: ' + mod.name, 'success');
+            if (!mod) return;
+            mods = mods.filter(m => m.id !== id);
+            if (selectedId === id) {
+                selectedId = null;
+                document.getElementById('inputCode').value = '';
+                document.getElementById('inputTitle').textContent = 'Mod Code Input';
             }
+            save();
+            render();
+            toast('Deleted: ' + mod.name, 'ok');
         }
 
-        function renameMod(id, newName) {
+        function renameMod(id, name) {
             const mod = mods.find(m => m.id === id);
-            if (mod) {
-                mod.name = newName.trim() || 'Unnamed Mod';
-                saveMods();
-                renderModList();
-                updateOutput();
-                if (selectedModId === id) {
-                    document.getElementById('inputTitle').textContent = 'Editing: ' + mod.name;
-                }
-                showToast('Mod renamed to: ' + mod.name, 'success');
+            if (!mod) return;
+            mod.name = name.trim() || 'Unnamed';
+            save();
+            render();
+            if (selectedId === id) {
+                document.getElementById('inputTitle').textContent = 'Editing: ' + mod.name;
             }
+            toast('Renamed to: ' + mod.name, 'ok');
         }
 
         function toggleMod(id) {
             const mod = mods.find(m => m.id === id);
-            if (mod) {
-                mod.enabled = !mod.enabled;
-                saveMods();
-                renderModList();
-                updateOutput();
-            }
+            if (!mod) return;
+            mod.on = !mod.on;
+            save();
+            render();
         }
 
         function selectMod(id) {
-            selectedModId = id;
+            selectedId = id;
             const mod = mods.find(m => m.id === id);
             if (mod) {
-                document.getElementById('inputEditor').value = mod.code;
+                document.getElementById('inputCode').value = mod.code;
                 document.getElementById('inputTitle').textContent = 'Editing: ' + mod.name;
-                document.getElementById('inputInfo').textContent = mod.enabled ? 'Enabled' : 'Disabled';
-                updateInputCharCount();
+                document.getElementById('inputInfo').textContent = mod.on ? 'Enabled' : 'Disabled';
+                updateInputChars();
             }
-            renderModList();
+            render();
         }
 
-        function updateModCode(code) {
-            const mod = mods.find(m => m.id === selectedModId);
+        function updateCode(code) {
+            const mod = mods.find(m => m.id === selectedId);
             if (mod) {
                 mod.code = code;
-                saveMods();
-                updateOutput();
+                save();
+                renderOutput();
             }
         }
 
-        // ============================================
-        // RENDERING
-        // ============================================
+        // ============ RENDER ============
+        function render() {
+            const list = document.getElementById('modList');
+            const count = document.getElementById('modCount');
+            
+            count.textContent = mods.length + ' mod' + (mods.length !== 1 ? 's' : '');
 
-        function renderModList() {
-            const container = document.getElementById('modList');
-            const countEl = document.getElementById('modCount');
-            
-            countEl.textContent = mods.length + ' mod' + (mods.length !== 1 ? 's' : '');
-            
             if (mods.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📦</div>
-                        <p>No mods yet</p>
-                        <p style="font-size: 12px; margin-top: 8px;">Click "Add New Mod" to get started</p>
-                    </div>
-                `;
+                list.innerHTML = '<div class="empty-state"><div class="empty-icon">📦</div><p>No mods yet</p><p style="font-size:12px;margin-top:8px">Click "Add New Mod" to start</p></div>';
+                renderOutput();
                 return;
             }
-            
-            container.innerHTML = mods.map(mod => `
-                <div class="mod-item ${mod.id === selectedModId ? 'selected' : ''} ${!mod.enabled ? 'disabled' : ''}" onclick="selectMod('${mod.id}')">
+
+            list.innerHTML = mods.map(m => `
+                <div class="mod-item ${m.id === selectedId ? 'selected' : ''} ${!m.on ? 'disabled' : ''}" onclick="selectMod('${m.id}')">
                     <div class="mod-header">
                         <div class="mod-name">
-                            <span>${mod.enabled ? '🟢' : '🔴'}</span>
-                            <span>${escapeHtml(mod.name)}</span>
+                            <span>${m.on ? '🟢' : '🔴'}</span>
+                            <span>${esc(m.name)}</span>
                         </div>
-                        <span class="mod-status ${mod.enabled ? 'enabled' : 'disabled'}">
-                            ${mod.enabled ? 'ON' : 'OFF'}
-                        </span>
+                        <span class="mod-status ${m.on ? 'on' : 'off'}">${m.on ? 'ON' : 'OFF'}</span>
                     </div>
-                    <div class="mod-code-preview">${escapeHtml(mod.code.substring(0, 60))}${mod.code.length > 60 ? '...' : ''}</div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                    <div class="mod-preview">${esc(m.code.substring(0, 50))}${m.code.length > 50 ? '...' : ''}</div>
+                    <div class="mod-actions">
                         <label class="toggle">
-                            <input type="checkbox" ${mod.enabled ? 'checked' : ''} onclick="event.stopPropagation(); toggleMod('${mod.id}')">
+                            <input type="checkbox" ${m.on ? 'checked' : ''} onclick="event.stopPropagation(); toggleMod('${m.id}')">
                             <span class="toggle-slider"></span>
                         </label>
-                        <div class="mod-actions">
-                            <button class="mod-action-btn" onclick="event.stopPropagation(); openRenameModal('${mod.id}')" title="Rename">✏️</button>
-                            <button class="mod-action-btn delete" onclick="event.stopPropagation(); deleteMod('${mod.id}')" title="Delete">🗑️</button>
-                        </div>
+                        <button class="action-btn" onclick="event.stopPropagation(); openModal('rename', '${m.id}')" title="Rename">✏️</button>
+                        <button class="action-btn delete" onclick="event.stopPropagation(); delMod('${m.id}')" title="Delete">🗑️</button>
                     </div>
                 </div>
             `).join('');
+
+            renderOutput();
         }
 
-        function updateOutput() {
-            const outputEl = document.getElementById('outputEditor');
-            const countEl = document.getElementById('outputCharCount');
+        function renderOutput() {
+            const out = document.getElementById('outputCode');
+            const bar = document.getElementById('outputChars');
             
-            const enabledMods = mods.filter(m => m.enabled && m.code.trim());
+            const active = mods.filter(m => m.on && m.code.trim());
             
-            if (enabledMods.length === 0) {
-                outputEl.innerHTML = '<span class="output-placeholder">// No enabled mods with code to output.\n// Enable some mods and add code to generate output.</span>';
-                countEl.textContent = '0 / 16,000 characters';
-                countEl.className = 'char-count';
+            if (active.length === 0) {
+                out.innerHTML = '<span class="placeholder">// No enabled mods with code</span>';
+                bar.textContent = '0 / 16,000';
+                bar.className = 'char-bar';
                 return;
             }
+
+            // Generate clean output (no special Unicode chars!)
+            let result = '';
             
-            let output = '';
-            
-            // Header
-            output += '/**\n';
-            output += ' * ╔══════════════════════════════════════════════╗\n';
-            output += ' * ║     BLOXD.IO MOD LOADER - GENERATED CODE     ║\n';
-            output += ' * ║     Mods: ' + enabledMods.length + ' enabled                                ║\n';
-            output += ' * ╚══════════════════════════════════════════════╝\n';
-            output += ' */\n\n';
-            
-            // Add each mod with comment header
-            enabledMods.forEach((mod, index) => {
-                output += '// ════════════════════════════════════════════════\n';
-                output += '// MOD: ' + mod.name + '\n';
-                output += '// ════════════════════════════════════════════════\n';
-                output += mod.code;
-                if (!mod.code.endsWith('\n')) {
-                    output += '\n';
-                }
-                output += '\n';
+            // Simple header comment
+            result += '// ======================================\n';
+            result += '// BLOXD.IO MOD LOADER OUTPUT\n';
+            result += '// ' + active.length + ' mod(s) enabled\n';
+            result += '// ======================================\n\n';
+
+            // Add each mod
+            active.forEach((m, i) => {
+                result += '// ------ MOD: ' + m.name + ' ------\n';
+                result += m.code;
+                if (!m.code.endsWith('\n')) result += '\n';
+                result += '\n';
             });
+
+            // Add required callbacks if not present
+            result += '// ------ REQUIRED CALLBACKS ------\n';
+            result += 'function tick() {}\n';
+            result += 'function onPlayerJoin(pid) {}\n';
+            result += 'function onPlayerLeave(pid) {}\n';
+            result += 'function onChat(pid, msg) {}\n';
+            result += 'function onKeyPress(pid, key) {}\n';
+
+            out.textContent = result;
             
-            outputEl.textContent = output;
+            const len = result.length;
+            bar.textContent = len.toLocaleString() + ' / 16,000 chars';
             
-            const charCount = output.length;
-            countEl.textContent = charCount.toLocaleString() + ' / 16,000 characters';
-            
-            if (charCount > 16000) {
-                countEl.className = 'char-count error';
-            } else if (charCount > 12000) {
-                countEl.className = 'char-count warning';
+            if (len > 16000) {
+                bar.className = 'char-bar error';
+            } else if (len > 12000) {
+                bar.className = 'char-bar warning';
             } else {
-                countEl.className = 'char-count';
+                bar.className = 'char-bar';
             }
         }
 
-        function updateInputCharCount() {
-            const code = document.getElementById('inputEditor').value;
-            const countEl = document.getElementById('inputCharCount');
-            countEl.textContent = code.length.toLocaleString() + ' characters';
+        function updateInputChars() {
+            const code = document.getElementById('inputCode').value;
+            document.getElementById('inputChars').textContent = code.length.toLocaleString() + ' chars';
         }
 
-        // ============================================
-        // MODAL
-        // ============================================
-
-        function openAddModal() {
-            modalMode = 'add';
-            document.getElementById('modalTitle').textContent = 'Add New Mod';
-            document.getElementById('modalInput').value = '';
-            document.getElementById('modalOverlay').classList.add('active');
-            document.getElementById('modalInput').focus();
-        }
-
-        function openRenameModal(id) {
-            modalMode = 'rename';
-            editingModId = id;
-            const mod = mods.find(m => m.id === id);
-            document.getElementById('modalTitle').textContent = 'Rename Mod';
-            document.getElementById('modalInput').value = mod ? mod.name : '';
-            document.getElementById('modalOverlay').classList.add('active');
-            document.getElementById('modalInput').focus();
+        // ============ MODAL ============
+        function openModal(mode, id) {
+            modalMode = mode;
+            editId = id || null;
+            
+            const title = document.getElementById('modalTitle');
+            const input = document.getElementById('modalInput');
+            
+            if (mode === 'add') {
+                title.textContent = 'Add New Mod';
+                input.value = '';
+            } else {
+                title.textContent = 'Rename Mod';
+                const mod = mods.find(m => m.id === id);
+                input.value = mod ? mod.name : '';
+            }
+            
+            document.getElementById('modalBg').classList.add('show');
+            input.focus();
         }
 
         function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
-            editingModId = null;
+            document.getElementById('modalBg').classList.remove('show');
+            editId = null;
         }
 
         function saveModal() {
             const name = document.getElementById('modalInput').value;
             if (modalMode === 'add') {
                 addMod(name);
-            } else if (modalMode === 'rename' && editingModId) {
-                renameMod(editingModId, name);
+            } else if (editId) {
+                renameMod(editId, name);
             }
             closeModal();
         }
 
-        // ============================================
-        // IMPORT / EXPORT
-        // ============================================
-
+        // ============ IMPORT/EXPORT ============
         function exportMods() {
             const data = JSON.stringify(mods, null, 2);
-            const blob = new Blob([data], { type: 'application/json' });
+            const blob = new Blob([data], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'bloxd_mods_' + new Date().toISOString().slice(0, 10) + '.json';
+            a.download = 'bloxd_mods.json';
             a.click();
             URL.revokeObjectURL(url);
-            showToast('Mods exported successfully!', 'success');
+            toast('Exported successfully!', 'ok');
         }
 
-        function importMods(event) {
-            const file = event.target.files[0];
+        function importMods(e) {
+            const file = e.target.files[0];
             if (!file) return;
             
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function(ev) {
                 try {
-                    const imported = JSON.parse(e.target.result);
-                    if (Array.isArray(imported)) {
-                        mods = [...mods, ...imported];
-                        saveMods();
-                        renderModList();
-                        updateOutput();
-                        showToast('Imported ' + imported.length + ' mods!', 'success');
+                    const data = JSON.parse(ev.target.result);
+                    if (Array.isArray(data)) {
+                        mods = [...mods, ...data];
+                        save();
+                        render();
+                        toast('Imported ' + data.length + ' mods!', 'ok');
                     }
                 } catch(err) {
-                    showToast('Invalid file format', 'error');
+                    toast('Invalid file!', 'err');
                 }
             };
             reader.readAsText(file);
-            event.target.value = '';
+            e.target.value = '';
         }
 
-        // ============================================
-        // CLIPBOARD
-        // ============================================
-
+        // ============ CLIPBOARD ============
         function copyOutput() {
-            const output = document.getElementById('outputEditor').textContent;
-            if (output.includes('No enabled mods')) {
-                showToast('No mods to copy!', 'error');
+            const code = document.getElementById('outputCode').textContent;
+            if (code.includes('No enabled mods')) {
+                toast('No mods to copy!', 'err');
                 return;
             }
-            
-            navigator.clipboard.writeText(output).then(() => {
-                showToast('Output copied to clipboard!', 'success');
+            navigator.clipboard.writeText(code).then(() => {
+                toast('Copied to clipboard!', 'ok');
             }).catch(() => {
-                showToast('Failed to copy', 'error');
+                toast('Copy failed!', 'err');
             });
         }
 
-        // ============================================
-        // TOAST
-        // ============================================
-
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = 'toast ' + type;
-            toast.innerHTML = `
-                <span>${type === 'success' ? '✅' : '❌'}</span>
-                <span>${escapeHtml(message)}</span>
-            `;
-            container.appendChild(toast);
-            
+        // ============ TOAST ============
+        function toast(msg, type) {
+            const box = document.getElementById('toastBox');
+            const t = document.createElement('div');
+            t.className = 'toast ' + type;
+            t.innerHTML = '<span>' + (type === 'ok' ? '✅' : '❌') + '</span><span>' + esc(msg) + '</span>';
+            box.appendChild(t);
             setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+                t.style.opacity = '0';
+                setTimeout(() => t.remove(), 300);
+            }, 2500);
         }
 
-        // ============================================
-        // UTILS
-        // ============================================
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        // ============ UTILS ============
+        function esc(text) {
+            const d = document.createElement('div');
+            d.textContent = text;
+            return d.innerHTML;
         }
 
-        // ============================================
-        // EVENT LISTENERS
-        // ============================================
-
-        document.getElementById('inputEditor').addEventListener('input', function() {
-            updateModCode(this.value);
-            updateInputCharCount();
+        // ============ EVENTS ============
+        document.getElementById('inputCode').addEventListener('input', function() {
+            updateCode(this.value);
+            updateInputChars();
         });
 
         document.getElementById('modalInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                saveModal();
-            } else if (e.key === 'Escape') {
-                closeModal();
-            }
+            if (e.key === 'Enter') saveModal();
+            if (e.key === 'Escape') closeModal();
         });
 
-        document.getElementById('modalOverlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+        document.getElementById('modalBg').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
         });
 
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey || e.metaKey) {
-                if (e.key === 's') {
-                    e.preventDefault();
-                    copyOutput();
-                }
-            }
-        });
-
-        // ============================================
-        // INIT
-        // ============================================
-
-        loadMods();
-        renderModList();
-        updateOutput();
-
-        // Select first mod if exists
-        if (mods.length > 0) {
-            selectMod(mods[0].id);
-        }
+        // ============ INIT ============
+        load();
+        render();
+        if (mods.length > 0) selectMod(mods[0].id);
     </script>
 </body>
 </html>
