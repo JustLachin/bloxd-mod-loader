@@ -5,123 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloxd.io Mod Loader</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-tertiary: #21262d;
-            --border-color: #30363d;
-            --text-primary: #e6edf3;
-            --text-secondary: #8b949e;
-            --accent-green: #3fb950;
-            --accent-blue: #58a6ff;
-            --accent-red: #f85149;
-            --accent-yellow: #d29922;
+            --bg1: #0d1117;
+            --bg2: #161b22;
+            --bg3: #21262d;
+            --border: #30363d;
+            --text1: #e6edf3;
+            --text2: #8b949e;
+            --green: #3fb950;
+            --blue: #58a6ff;
+            --red: #f85149;
+            --yellow: #d29922;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: var(--bg1);
+            color: var(--text1);
             min-height: 100vh;
         }
 
         .header {
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 16px 24px;
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .logo-text {
-            font-size: 20px;
-            font-weight: 600;
-        }
+        .logo-text { font-size: 18px; font-weight: 600; }
 
         .version {
-            background: var(--accent-blue);
+            background: var(--blue);
             color: white;
             padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 12px;
+            border-radius: 10px;
+            font-size: 11px;
         }
 
         .btn {
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            font-size: 14px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg3);
+            color: var(--text1);
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .btn:hover {
-            background: var(--border-color);
-        }
+        .btn:hover { background: var(--border); }
 
         .btn-primary {
-            background: var(--accent-green);
-            border-color: var(--accent-green);
+            background: var(--green);
+            border-color: var(--green);
             color: #000;
         }
 
-        .btn-primary:hover {
-            background: #2ea043;
-        }
+        .btn-primary:hover { background: #2ea043; }
 
         .main {
             display: flex;
-            height: calc(100vh - 70px);
+            height: calc(100vh - 60px);
         }
 
         .sidebar {
-            width: 300px;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
+            width: 280px;
+            background: var(--bg2);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
         }
 
         .sidebar-header {
-            padding: 16px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .sidebar-title {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: var(--text2);
             text-transform: uppercase;
         }
 
         .mod-count {
-            background: var(--bg-tertiary);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
+            background: var(--bg3);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
         }
 
         .mod-list {
@@ -131,160 +120,127 @@
         }
 
         .mod-item {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 8px;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 6px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .mod-item:hover {
-            border-color: var(--accent-blue);
-        }
+        .mod-item:hover { border-color: var(--blue); }
 
         .mod-item.selected {
-            border-color: var(--accent-blue);
+            border-color: var(--blue);
             background: rgba(88, 166, 255, 0.1);
         }
 
-        .mod-item.disabled {
-            opacity: 0.5;
-        }
+        .mod-item.disabled { opacity: 0.5; }
 
         .mod-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .mod-name {
             font-weight: 500;
+            font-size: 13px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .mod-status {
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 12px;
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 10px;
             font-weight: 600;
         }
 
-        .mod-status.on {
-            background: rgba(63, 185, 80, 0.2);
-            color: var(--accent-green);
-        }
-
-        .mod-status.off {
-            background: rgba(139, 148, 158, 0.2);
-            color: var(--text-secondary);
-        }
+        .mod-status.on { background: rgba(63, 185, 80, 0.2); color: var(--green); }
+        .mod-status.off { background: rgba(139, 148, 158, 0.2); color: var(--text2); }
 
         .mod-preview {
             font-family: monospace;
-            font-size: 11px;
-            color: var(--text-secondary);
-            background: var(--bg-primary);
-            padding: 6px 8px;
-            border-radius: 4px;
+            font-size: 10px;
+            color: var(--text2);
+            background: var(--bg1);
+            padding: 4px 6px;
+            border-radius: 3px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .mod-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
         }
 
         .toggle {
             position: relative;
-            width: 36px;
-            height: 20px;
+            width: 32px;
+            height: 18px;
         }
 
-        .toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
+        .toggle input { opacity: 0; width: 0; height: 0; }
 
         .toggle-slider {
             position: absolute;
             cursor: pointer;
             inset: 0;
-            background: var(--bg-primary);
-            border-radius: 20px;
+            background: var(--bg1);
+            border-radius: 18px;
             transition: 0.3s;
         }
 
         .toggle-slider:before {
             position: absolute;
             content: "";
-            height: 14px;
-            width: 14px;
+            height: 12px;
+            width: 12px;
             left: 3px;
             bottom: 3px;
-            background: var(--text-secondary);
+            background: var(--text2);
             border-radius: 50%;
             transition: 0.3s;
         }
 
-        .toggle input:checked + .toggle-slider {
-            background: var(--accent-green);
-        }
-
-        .toggle input:checked + .toggle-slider:before {
-            transform: translateX(16px);
-            background: white;
-        }
+        .toggle input:checked + .toggle-slider { background: var(--green); }
+        .toggle input:checked + .toggle-slider:before { transform: translateX(14px); background: white; }
 
         .action-btn {
             background: transparent;
             border: none;
-            color: var(--text-secondary);
+            color: var(--text2);
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 11px;
         }
 
-        .action-btn:hover {
-            background: var(--border-color);
-            color: var(--text-primary);
-        }
-
-        .action-btn.delete:hover {
-            color: var(--accent-red);
-        }
+        .action-btn:hover { background: var(--border); color: var(--text1); }
+        .action-btn.delete:hover { color: var(--red); }
 
         .empty-state {
             text-align: center;
-            padding: 40px 20px;
-            color: var(--text-secondary);
+            padding: 30px 15px;
+            color: var(--text2);
         }
 
-        .empty-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
+        .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
 
         .sidebar-footer {
-            padding: 12px;
-            border-top: 1px solid var(--border-color);
+            padding: 10px;
+            border-top: 1px solid var(--border);
         }
 
-        .sidebar-footer .btn {
-            width: 100%;
-            justify-content: center;
-        }
+        .sidebar-footer .btn { width: 100%; justify-content: center; }
 
         .editor-area {
             flex: 1;
@@ -296,46 +252,36 @@
             flex: 1;
             display: flex;
             gap: 1px;
-            background: var(--border-color);
+            background: var(--border);
         }
 
         .panel {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: var(--bg-primary);
+            background: var(--bg1);
         }
 
         .panel-header {
-            background: var(--bg-secondary);
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-color);
+            background: var(--bg2);
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .panel-title {
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .panel-info {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
+        .panel-title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .panel-info { font-size: 11px; color: var(--text2); }
 
         .code-editor {
             flex: 1;
-            padding: 16px;
+            padding: 14px;
             font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-size: 12px;
+            line-height: 1.5;
+            background: var(--bg1);
+            color: var(--text1);
             border: none;
             outline: none;
             resize: none;
@@ -343,38 +289,29 @@
 
         .code-output {
             flex: 1;
-            padding: 16px;
+            padding: 14px;
             font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-size: 12px;
+            line-height: 1.5;
+            background: var(--bg1);
+            color: var(--text1);
             overflow: auto;
             white-space: pre;
         }
 
-        .placeholder {
-            color: var(--text-secondary);
-            font-style: italic;
-        }
+        .placeholder { color: var(--text2); font-style: italic; }
 
         .char-bar {
-            font-size: 12px;
-            color: var(--text-secondary);
-            padding: 8px 16px;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+            color: var(--text2);
+            padding: 6px 14px;
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
         }
 
-        .char-bar.warning {
-            color: var(--accent-yellow);
-        }
+        .char-bar.warning { color: var(--yellow); }
+        .char-bar.error { color: var(--red); }
 
-        .char-bar.error {
-            color: var(--accent-red);
-        }
-
-        /* Modal */
         .modal-bg {
             position: fixed;
             inset: 0;
@@ -385,115 +322,72 @@
             z-index: 1000;
         }
 
-        .modal-bg.show {
-            display: flex;
-        }
+        .modal-bg.show { display: flex; }
 
         .modal {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            width: 400px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            width: 350px;
             max-width: 90%;
         }
 
-        .modal-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
+        .modal-title { font-size: 16px; font-weight: 600; margin-bottom: 14px; }
 
         .modal-input {
             width: 100%;
-            padding: 12px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 14px;
-            margin-bottom: 16px;
+            padding: 10px;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text1);
+            font-size: 13px;
+            margin-bottom: 14px;
         }
 
-        .modal-input:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-        }
+        .modal-input:focus { outline: none; border-color: var(--blue); }
 
-        .modal-btns {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-        }
+        .modal-btns { display: flex; gap: 10px; justify-content: flex-end; }
 
-        /* Toast */
-        .toast-box {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 2000;
-        }
+        .toast-box { position: fixed; top: 15px; right: 15px; z-index: 2000; }
 
         .toast {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-bottom: 8px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             animation: slideIn 0.3s ease;
         }
 
-        .toast.ok {
-            border-color: var(--accent-green);
-        }
+        .toast.ok { border-color: var(--green); }
+        .toast.err { border-color: var(--red); }
 
-        .toast.err {
-            border-color: var(--accent-red);
-        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Responsive */
         @media (max-width: 800px) {
-            .main {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                max-height: 250px;
-            }
-            .editor-split {
-                flex-direction: column;
-            }
+            .main { flex-direction: column; }
+            .sidebar { width: 100%; max-height: 220px; }
+            .editor-split { flex-direction: column; }
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg1); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="logo">
-            <span style="font-size: 24px;">⚡</span>
+            <span style="font-size: 20px;">⚡</span>
             <span class="logo-text">Bloxd.io Mod Loader</span>
-            <span class="version">v1.0</span>
+            <span class="version">v1.1</span>
         </div>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button class="btn" onclick="exportMods()">📁 Export</button>
             <button class="btn" onclick="document.getElementById('importFile').click()">📥 Import</button>
             <input type="file" id="importFile" accept=".json" style="display:none" onchange="importMods(event)">
@@ -520,16 +414,16 @@
                         <span class="panel-title">📝 <span id="inputTitle">Mod Code Input</span></span>
                         <span class="panel-info" id="inputInfo">Select a mod</span>
                     </div>
-                    <textarea class="code-editor" id="inputCode" placeholder="// Select a mod to edit its code
+                    <textarea class="code-editor" id="inputCode" placeholder="// Select a mod to edit
 
 // Example:
-function tick() {
+tick = () => {
     // runs every tick
-}
+};
 
-function onPlayerJoin(pid) {
+onPlayerJoin = pid => {
     api.sendMessage(pid, 'Welcome!');
-}" spellcheck="false"></textarea>
+};" spellcheck="false"></textarea>
                     <div class="char-bar" id="inputChars">0 chars</div>
                 </div>
 
@@ -539,7 +433,10 @@ function onPlayerJoin(pid) {
                         <span class="panel-info">Copy to Bloxd.io World Code</span>
                     </div>
                     <div class="code-output" id="outputCode">
-                        <span class="placeholder">// Enable mods to see combined output here</span>
+                        <span class="placeholder">// Enable mods to see combined output here
+
+// Output will be CLEAN code only - no comments added.
+// Just raw mod code concatenated together.</span>
                     </div>
                     <div class="char-bar" id="outputChars">0 / 16,000</div>
                 </div>
@@ -547,7 +444,6 @@ function onPlayerJoin(pid) {
         </div>
     </div>
 
-    <!-- Modal -->
     <div class="modal-bg" id="modalBg">
         <div class="modal">
             <h3 class="modal-title" id="modalTitle">Add New Mod</h3>
@@ -559,11 +455,9 @@ function onPlayerJoin(pid) {
         </div>
     </div>
 
-    <!-- Toast -->
     <div class="toast-box" id="toastBox"></div>
 
     <script>
-        // ============ STATE ============
         let mods = [];
         let selectedId = null;
         let modalMode = 'add';
@@ -571,20 +465,19 @@ function onPlayerJoin(pid) {
 
         function load() {
             try {
-                const data = localStorage.getItem('bloxd_mods');
+                const data = localStorage.getItem('bloxd_mods_v2');
                 if (data) mods = JSON.parse(data);
             } catch(e) {}
         }
 
         function save() {
-            localStorage.setItem('bloxd_mods', JSON.stringify(mods));
+            localStorage.setItem('bloxd_mods_v2', JSON.stringify(mods));
         }
 
         function genId() {
             return 'm' + Date.now() + Math.random().toString(36).substr(2, 6);
         }
 
-        // ============ MOD OPERATIONS ============
         function addMod(name) {
             const mod = {
                 id: genId(),
@@ -654,7 +547,6 @@ function onPlayerJoin(pid) {
             }
         }
 
-        // ============ RENDER ============
         function render() {
             const list = document.getElementById('modList');
             const count = document.getElementById('modCount');
@@ -662,7 +554,7 @@ function onPlayerJoin(pid) {
             count.textContent = mods.length + ' mod' + (mods.length !== 1 ? 's' : '');
 
             if (mods.length === 0) {
-                list.innerHTML = '<div class="empty-state"><div class="empty-icon">📦</div><p>No mods yet</p><p style="font-size:12px;margin-top:8px">Click "Add New Mod" to start</p></div>';
+                list.innerHTML = '<div class="empty-state"><div class="empty-icon">📦</div><p>No mods yet</p><p style="font-size:11px;margin-top:6px">Click "Add New Mod" to start</p></div>';
                 renderOutput();
                 return;
             }
@@ -676,7 +568,7 @@ function onPlayerJoin(pid) {
                         </div>
                         <span class="mod-status ${m.on ? 'on' : 'off'}">${m.on ? 'ON' : 'OFF'}</span>
                     </div>
-                    <div class="mod-preview">${esc(m.code.substring(0, 50))}${m.code.length > 50 ? '...' : ''}</div>
+                    <div class="mod-preview">${esc(m.code.substring(0, 40))}${m.code.length > 40 ? '...' : ''}</div>
                     <div class="mod-actions">
                         <label class="toggle">
                             <input type="checkbox" ${m.on ? 'checked' : ''} onclick="event.stopPropagation(); toggleMod('${m.id}')">
@@ -691,6 +583,15 @@ function onPlayerJoin(pid) {
             renderOutput();
         }
 
+        function stripComments(code) {
+            let result = code;
+            result = result.replace(/\/\*[\s\S]*?\*\//g, '');
+            result = result.replace(/\/\/.*$/gm, '');
+            result = result.replace(/\n\s*\n\s*\n/g, '\n\n');
+            result = result.trim();
+            return result;
+        }
+
         function renderOutput() {
             const out = document.getElementById('outputCode');
             const bar = document.getElementById('outputChars');
@@ -698,36 +599,22 @@ function onPlayerJoin(pid) {
             const active = mods.filter(m => m.on && m.code.trim());
             
             if (active.length === 0) {
-                out.innerHTML = '<span class="placeholder">// No enabled mods with code</span>';
+                out.innerHTML = '<span class="placeholder">// Enable mods to see combined output here\n\n// Output will be CLEAN code only - no comments added.\n// Just raw mod code concatenated together.</span>';
                 bar.textContent = '0 / 16,000';
                 bar.className = 'char-bar';
                 return;
             }
 
-            // Generate clean output (no special Unicode chars!)
             let result = '';
             
-            // Simple header comment
-            result += '// ======================================\n';
-            result += '// BLOXD.IO MOD LOADER OUTPUT\n';
-            result += '// ' + active.length + ' mod(s) enabled\n';
-            result += '// ======================================\n\n';
-
-            // Add each mod
             active.forEach((m, i) => {
-                result += '// ------ MOD: ' + m.name + ' ------\n';
-                result += m.code;
-                if (!m.code.endsWith('\n')) result += '\n';
-                result += '\n';
+                let cleanCode = stripComments(m.code);
+                if (cleanCode.trim()) {
+                    result += cleanCode;
+                    if (!cleanCode.endsWith('\n')) result += '\n';
+                    result += '\n';
+                }
             });
-
-            // Add required callbacks if not present
-            result += '// ------ REQUIRED CALLBACKS ------\n';
-            result += 'function tick() {}\n';
-            result += 'function onPlayerJoin(pid) {}\n';
-            result += 'function onPlayerLeave(pid) {}\n';
-            result += 'function onChat(pid, msg) {}\n';
-            result += 'function onKeyPress(pid, key) {}\n';
 
             out.textContent = result;
             
@@ -748,7 +635,6 @@ function onPlayerJoin(pid) {
             document.getElementById('inputChars').textContent = code.length.toLocaleString() + ' chars';
         }
 
-        // ============ MODAL ============
         function openModal(mode, id) {
             modalMode = mode;
             editId = id || null;
@@ -784,7 +670,6 @@ function onPlayerJoin(pid) {
             closeModal();
         }
 
-        // ============ IMPORT/EXPORT ============
         function exportMods() {
             const data = JSON.stringify(mods, null, 2);
             const blob = new Blob([data], {type: 'application/json'});
@@ -794,7 +679,7 @@ function onPlayerJoin(pid) {
             a.download = 'bloxd_mods.json';
             a.click();
             URL.revokeObjectURL(url);
-            toast('Exported successfully!', 'ok');
+            toast('Exported!', 'ok');
         }
 
         function importMods(e) {
@@ -819,21 +704,19 @@ function onPlayerJoin(pid) {
             e.target.value = '';
         }
 
-        // ============ CLIPBOARD ============
         function copyOutput() {
             const code = document.getElementById('outputCode').textContent;
-            if (code.includes('No enabled mods')) {
+            if (code.includes('Enable mods to see')) {
                 toast('No mods to copy!', 'err');
                 return;
             }
             navigator.clipboard.writeText(code).then(() => {
-                toast('Copied to clipboard!', 'ok');
+                toast('Copied!', 'ok');
             }).catch(() => {
                 toast('Copy failed!', 'err');
             });
         }
 
-        // ============ TOAST ============
         function toast(msg, type) {
             const box = document.getElementById('toastBox');
             const t = document.createElement('div');
@@ -843,17 +726,15 @@ function onPlayerJoin(pid) {
             setTimeout(() => {
                 t.style.opacity = '0';
                 setTimeout(() => t.remove(), 300);
-            }, 2500);
+            }, 2000);
         }
 
-        // ============ UTILS ============
         function esc(text) {
             const d = document.createElement('div');
             d.textContent = text;
             return d.innerHTML;
         }
 
-        // ============ EVENTS ============
         document.getElementById('inputCode').addEventListener('input', function() {
             updateCode(this.value);
             updateInputChars();
@@ -868,7 +749,6 @@ function onPlayerJoin(pid) {
             if (e.target === this) closeModal();
         });
 
-        // ============ INIT ============
         load();
         render();
         if (mods.length > 0) selectMod(mods[0].id);
